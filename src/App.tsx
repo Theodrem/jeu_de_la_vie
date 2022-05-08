@@ -33,20 +33,20 @@ const App: FC = () => {
     let gridCopy = JSON.parse(JSON.stringify(grid));
     for (let i = 0; i < numRows; i++) {
       for (let j = 0; j < numCols; j++) {
-        let neighbors = 0;
+        let next = 0;
 
-        positions.forEach(([x, y]) => {
+        positions.forEach(([x, y]) => { // le foreach s'execute 8 fois afin de checker si chaque voisin est 1 ou 0
           const newI = i + x;
           const newJ = j + y;
 
           if (newI >= 0 && newI < numRows && newJ >= 0 && newJ < numCols) {
-            neighbors += grid[newI][newJ];
+            next += grid[newI][newJ];
           }
         });
 
-        if (neighbors < 2 || neighbors > 3) {
+        if (next < 2 || next > 3) { // si la cellule a moins de 2 voisins ou plus de 3 elle meurt
           gridCopy[i][j] = 0;
-        } else if (grid[i][j] === 0 && neighbors === 3) {
+        } else if (grid[i][j] === 0 && next === 3) {
           gridCopy[i][j] = 1;
         }
       }
